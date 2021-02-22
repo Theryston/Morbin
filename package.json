@@ -1,0 +1,15 @@
+{
+  "name": "morbin",
+  "version": "1.0.0",
+  "description": "a coding system that transforms a text into an array with binary numbers arranged in a specific sequence for each character ",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node index.js"
+  },
+  "author": "Theryston Santos",
+  "license": "MIT",
+  "dependencies": {
+    "morsee": "^1.0.8"
+  }
+}
