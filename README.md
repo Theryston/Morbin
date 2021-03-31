@@ -3,4 +3,4 @@ a coding system that transforms a text into an array with binary numbers arrange
 
 ## Docs
 
-open and read the file [./examples/test.js]()
+open and read the file [./examples/test.js](https://github.com/Theryston/Morbin/blob/master/examples/test.js)
