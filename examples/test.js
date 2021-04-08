@@ -1,6 +1,8 @@
 //require the MorBin
 const MorBin = require('../')
-const encoder = new MorBin('array', 'pt-BR')
+
+//creating the encoder of morbin
+const encoder = new MorBin('pt-BR') //the code of the language in which your texts will be
 
 // a text for encode
 var text = `você é muito legal!`
