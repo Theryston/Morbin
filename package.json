@@ -1,6 +1,6 @@
 {
   "name": "morbin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "a coding system that transforms a text into an array with binary numbers arranged in a specific sequence for each character ",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,8 @@
   "author": "Theryston Santos",
   "license": "MIT",
   "dependencies": {
+    "algorithmia": "^0.3.10",
+    "dotenv": "^8.2.0",
     "morsee": "^1.0.8"
   }
 }

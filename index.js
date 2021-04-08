@@ -1,8 +1,64 @@
 const morsee = require('morsee');
-
+const Algorithmia = require("algorithmia");
+require('dotenv').config()
+var algorithmiaKey = require('./credentials/algorithmia.json').key
+const algorithm = Algorithmia.client(algorithmiaKey)
+const translator = algorithm.algo('translation/GoogleTranslate/0.1.1')
 
 class MorBin {
-  static decode(morbin) {
+  constructor(type, lang) {
+    this.type = type
+    this.lang = lang
+  }
+
+  async encode(text) {
+    var response = await translator.pipe({
+        action: "translate",
+        text: text,
+        target_language: 'en'
+      })
+      var content = response.get()
+    
+    if (this.type == 'array') {
+      return this.encodeArray(content.translation)
+    } else if (this.type == 'number') {
+      return this.encodeNumber(content.translation)
+    } else {
+      return 'the type is invalid'
+    }
+  }
+
+  async decode(morbin) {
+    if (this.type == 'array') {
+      var response = await translator.pipe({
+        action: "translate",
+        text: this.decodeArray(morbin),
+        target_language: this.lang
+      })
+      var content = response.get()
+      return content.translation
+    } else if (this.type == 'number') {
+      var response = await translator.pipe({
+        action: "translate",
+        text: this.decodeNumber(morbin),
+        target_language: this.lang
+      })
+      var content = response.get()
+      return content.translation
+    } else {
+      console.error('the type is invalid')
+    }
+  }
+
+  decodeNumber(morbin) {
+    return 'All right!'
+  }
+
+  encodeNumber(text) {
+    return 1000010
+  }
+
+  decodeArray(morbin) {
     this.morbin = morbin
     this.morse = ''
     this.MorseCodeBin = []
@@ -38,12 +94,10 @@ class MorBin {
     }
 
     this.text = morsee.decode(this.morse)
-
     return this.text
-
   }
 
-  static encode(text) {
+  encodeArray(text) {
     this.text = text
     this.morse = morsee.encode(this.text)
     this.arrMorse = this.morse.split(' ')
@@ -52,7 +106,21 @@ class MorBin {
     for (let i = 0; i < this.arrMorse.length; i++) {
       var morbin = [1]
       if (this.arrMorse[i] == '/') {
-        morbin = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        morbin = [0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0]
       } else {
         for (let o = 0; o < this.arrMorse[i].length; o++) {
           if (this.arrMorse[i][o] == '.') {
